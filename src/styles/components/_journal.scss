@@ -1,0 +1,139 @@
+
+
+.journal__main-content {
+    display: flex;
+    width: 100vw;
+    min-height: 100vh;
+    max-width: 1400px;
+    box-shadow: 0 0 9px 5px rgba(0, 0, 0, 0.507);
+}
+
+.journal__sidebar {
+    background-color: $dark-grey;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-height: 25vh;
+    padding-left: .625em;
+    padding-right: .625em;
+    width: 450px;
+}
+
+.journal__sidebar-navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.journal__sidebar-navbar h3 {
+    font-weight: lighter;
+}
+
+.journal__new-entry {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 1.875em;
+    width: 100%;
+
+    transition: color .3s ease;
+
+    &:hover {
+        color: darken($color: white, $amount: 20);
+    }
+    
+}
+
+.journal__entries {
+    flex: 1 1 auto;
+    margin-top: 1.875em;
+    overflow-y: auto;
+    transition: height .5s;
+    height: inherit;
+    max-height: 55vh;
+}
+
+.journal__entry {
+    background-color: white;
+    border-radius: 4px;
+    color: $dark-grey;
+    display: flex;
+    // justify-content: space-between;
+    margin-bottom: .625em;
+    overflow: hidden;
+    margin-right: 4px;
+}
+
+.journal__entry-picture {
+    height: 75px;
+    width: 75px;
+    flex-shrink: 0;
+}
+
+
+.journal__entry-body {
+    padding: .625em;
+}
+
+.journal__entry-title {
+    font-size: .875rem;
+    font-weight: bold;
+}
+
+.journal__entry-content {
+    font-size: .6875rem;
+}
+
+.journal__entry-date-box {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: .3125em;
+}
+
+.journal__entry-date-box span{
+    font-size: .75rem;
+}
+
+// media query
+@include mobile {
+    .journal__main-content {
+        color: black;
+        background-color: rgb(223, 223, 223);
+        flex-direction: column;
+    }
+    .journal__entries {
+        height: 13.125em;
+    }
+    .journal__sidebar {
+        width: auto;
+    }
+}
+
+// scroll of journal entries
+.journal__entries::-webkit-scrollbar {
+    -webkit-appearance: none;
+ }
+ 
+ .journal__entries::-webkit-scrollbar:vertical {
+    width: 12.5px;
+    border-radius: 3px;
+ }
+ 
+ .journal__entries::-webkit-scrollbar-button:increment,::-webkit-scrollbar-button {
+    display: none;
+ } 
+ 
+ .journal__entries::-webkit-scrollbar-thumb {
+    background-color: $primary;
+    border-radius: 5px;
+ }
+ 
+ .journal__entries::-webkit-scrollbar-track {
+    border-radius: 5px;
+    background: $light-grey;  
+ }
