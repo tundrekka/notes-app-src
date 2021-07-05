@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable no-console */
+import React, { Suspense, useEffect, useState,  } from 'react';
 import {
 	HashRouter as Router,
 	Switch,
@@ -6,13 +7,25 @@ import {
 } from 'react-router-dom';
 import { firebase } from '../firebase/firebase-config'
 
-import { AuthRouter } from './AuthRouter';
-import { JournalScreen } from '../components/journal/JournalScreen';
+// import { AuthRouter } from './AuthRouter';
+// import  JournalScreen  from '../components/journal/JournalScreen';
 import { useDispatch } from 'react-redux';
 import { login } from '../actions/auth';
 import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { startLoadingNotes } from '../actions/notes';
+import { ErrorBoundary } from '../components/ErrorBoundary';
+import { Spinner } from '../components/Spinner';
+
+const JournalScreen = React.lazy(() => {
+	return import('../components/journal/JournalScreen')
+})
+const AuthRouter = React.lazy(() => {
+	return import('./AuthRouter')
+})
+
+
+
 
 export const AppRouter = () => {
 
@@ -38,29 +51,32 @@ export const AppRouter = () => {
 	}, [dispatch])
 
 
-	if( checking ) return <h2 style={{color: 'white'}} >Wait</h2>
+	if( checking ) return null
 
 	return (
 		<Router>
 			<div>
-					<Switch>
-						<PublicRoute 
-							path="/auth"
-							component={ AuthRouter }
-							isAuthenticated={isLoggedIn}
-						/>
+				<Switch>
+					<ErrorBoundary>
+						<Suspense fallback={<Spinner />}>
+							<PublicRoute 
+								path="/auth"
+								component={ AuthRouter }
+								isAuthenticated={isLoggedIn}
+							/>
+						
+							<PrivateRoute
+								exact
+								path="/"
+								component={ JournalScreen }
+								isAuthenticated={isLoggedIn}
+							/>
+						</Suspense>	
+					</ErrorBoundary>	
 
-						<PrivateRoute 
-							exact
-							path="/"
-							component={ JournalScreen }
-							isAuthenticated={isLoggedIn}
-						/>
+					<Redirect to="/auth/login" />
 
-						<Redirect to="/auth/login" />
-
-
-					</Switch>
+				</Switch>
 			</div>
 		</Router>
 	)

@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { NothingSelected } from './NothingSelected';
 
 
-export const JournalScreen = () => {
+export default function JournalScreen() {
     
 
     const {active} = useSelector(state => state.notes)

@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { LoginScreen } from '../components/auth/LoginScreen';
 import { RegisterScreen } from '../components/auth/RegisterScreen';
 
-export const AuthRouter = () => {
+const AuthRoute = () => {
     return (
         <div className="auth__main">
             <div className="auth__box-container">
@@ -30,3 +30,4 @@ export const AuthRouter = () => {
         </div>
     )
 }
+export default AuthRoute
